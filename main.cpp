@@ -36,8 +36,6 @@ int main()
         vec.resize(44);
         printVector(vec);
 
-        printVector(vec);
-
         vec.resize(oldSize);
         printVector(vec);
 

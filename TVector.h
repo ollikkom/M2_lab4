@@ -81,10 +81,10 @@ public:
 
     TVector& operator=(const TVector& rhs)
     {
-        if (Ptr != nullptr) delete[] Ptr;
         if (this == &rhs) return *this;
         InternalCapacity = rhs.InternalCapacity;
         Count = rhs.Count;
+        delete[] Ptr;
         Ptr = new value_type[InternalCapacity];
         memcpy(Ptr, rhs.Ptr, Count * sizeof(value_type));
         return *this;
@@ -188,7 +188,8 @@ public:
 
     void resize(size_type count, value_type value = value_type())
     {
-        if (Count = count) return;
+        if (Count == count)
+            return;
         value_type *pP = new value_type[count];
 
         if (count < Count)
@@ -205,8 +206,8 @@ public:
             }
         }
         Count = count;
-        Ptr = pP;
         delete[] Ptr;
+        Ptr = pP;
     }
 
     iterator insert(iterator pos, const value_type& value)
